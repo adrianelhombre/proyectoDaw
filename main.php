@@ -21,7 +21,8 @@
 
     <?php include("layout/modal-ejercicio.php");
           include("layout/modal-perfil.php"); 
-          include("layout/modal-nuevo-ejercicio.php") ?>
+          include("layout/modal-nuevo-ejercicio.php")
+          ?>
 
     <?php include("layout/button.php"); ?>
 

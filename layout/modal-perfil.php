@@ -18,7 +18,9 @@
             <img src="./assets/cancelar.png" class="icono-peq" alt="">
           </button>
         </div>
+        <?php include('modal-mensaje.php') ?>
       </div>
+
       <div class="editar-perfil">
         <h3>Datos personales</h3>
         <span type="text" id="profile-email" class="input-general" contenteditable="false">Email</span>

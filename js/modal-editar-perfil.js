@@ -12,7 +12,7 @@ closeModalButton.addEventListener("click", () => {
 export function initializeProfileModal() {
     buttonEditProfile.addEventListener("click", (e) => {
         e.preventDefault();
-        showProfileModal();
+        showProfileModal()
 
         if (userDataString) {
             const userData = JSON.parse(userDataString);
@@ -24,7 +24,7 @@ export function initializeProfileModal() {
 
         buttonEditUsername.addEventListener("click", (e) => {
             e.preventDefault();
-            handleUsernameEdit();   
+            handleUsernameEdit();
         });
         buttonDeleteProfile.addEventListener("click", (e) => {
             e.preventDefault();

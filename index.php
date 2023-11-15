@@ -24,7 +24,8 @@
         </div>
 
         <?php include ("./layout/modal-error.php"); 
-              include ("./layout/modal-registro.php"); ?>
+              include ("./layout/modal-registro.php"); 
+              ?>
 
 
         <p class="registro-aqui">

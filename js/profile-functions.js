@@ -17,6 +17,24 @@ export function showProfileModal() {
   modalPerfil.style.display = "block";
 }
 
+export function showMesaggeModal(message) {
+  const modalMessage = document.getElementById("modal-container-message");
+  const modalMessageText = document.getElementById("modal-message-text");
+  const modalMessageClose = document.getElementById("btn-ok-message");
+  modalMessage.settime
+  modalMessage.style.display = "flex";
+  modalMessageText.innerText = message;
+
+  setTimeout(() => {
+    modalMessage.style.display = "none";
+  }, 2000);
+  
+  modalMessageClose.addEventListener("click", (e) => {
+    e.preventDefault();
+    modalMessage.style.display = "none";
+  })
+}
+
 export function handleUsernameEdit() {
   const buttonEditUsername = document.getElementById("btn-edit-username");
   const buttonOk = document.getElementById("btn-save-username");
@@ -38,6 +56,7 @@ export function handleUsernameEdit() {
       const userData = JSON.parse(sessionStorage.getItem('user_data'));
       const userId = userData.id_user;
       const newUsername = usernameProfile.innerText;
+      const spanUser = document.getElementById("span-user");
 
       // Enviar datos al servidor para actualizar el nombre de usuario
       fetch("./db/update-username.php", {
@@ -55,9 +74,21 @@ export function handleUsernameEdit() {
       })
       .then((data) => {
           console.log(data);
+          
           if (data.success) {
-              alert("Usuario actualizado con éxito");
-              window.location.href = "./main.php";
+              showMesaggeModal(data.message);
+              setTimeout(() => {
+                window.location.href = "./main.php";
+                const updatedUserData = JSON.parse(sessionStorage.getItem('user_data'));
+                updatedUserData.user_name = newUsername;
+                sessionStorage.setItem('user_data', JSON.stringify(updatedUserData));
+
+                // Actualizar el nombre de usuario en el header
+                spanUser.innerText = newUsername;
+              }, 2000);
+              
+          } else {
+            showMesaggeModal(data.message);
           }
       })
       .catch((error) => {
