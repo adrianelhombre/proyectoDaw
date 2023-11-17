@@ -10,27 +10,46 @@
 
   <body class="body-login">
       <main class="main-login">
-        <img src="./assets/LOGO GRANDE.png" class="logo-grande" alt="Vite logo" />
-        <h1>Inicio sesion</h1>
+        <div id="container-login" class="container-login left">
 
-        <div class="card">
-          <form id="form-login" method="POST">
-            <input class="input-general" id="user" type="text" name="user-name" placeholder="Nombre usuario" />
-            <br>
-            <input class="input-general" id="password" type="password" name="user-pass" placeholder="Contraseña" />
-            <br>
-            <input id="btn-form-enviar" class="btn-general btn-amarillo" type="submit" value="Iniciar">
-          </form>
+          <div id="card-login" class="card-registro">
+            <form id="form-registro" class="form-login" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> 
+              <h2 id="bienvenido" class="titulo-form">Bienvenido!</h2>
+              <input class="input-form" id="nombre-form" type="text" name="nombre-form" placeholder="Nombre" title="Este campo solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
+              <input class="input-form" id="apellido-form" type="text" name="apellido-form" placeholder="Apellidos" title="Este campo solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
+              <input class="input-form" id="email-form" type="text" name="email-form" placeholder="Correo electrónico" title="Email incorrecto" required>
+              <input class="input-form" id="usuario-form" type="text" name="user-form" placeholder="Nombre de usuario" required>
+              <input class="input-form" id="password-form" type="password" name="pass-form" placeholder="Contraseña" required>
+              <span id="error-message" class="error-message"></span>
+              <input id="btn-registro-enviar" class="btn-general btn-amarillo" type="submit" value="Enviar">
+            </form>
+            <?php include ("./layout/modal-mensaje.php"); ?>
+          </div>
+
+          <div id="info-login" class="info-login">
+            <img src="./assets/LOGO GRANDE.png" class="logo-grande" alt="Vite logo" />
+            <span id="registro-aqui" class="registro-aqui">
+              Aun no tienes cuenta? Registrate <button id="registro" class="btn-registro"=>aqui</button>.
+            </span>
+          </div>
+  
+          <div id="card-login" class="card-login">
+            <form id="form-login" class="form-login" method="POST">
+              <h2 class="titulo-form">Iniciar sesion</h2>
+              <input class="input-form" id="user" type="text" name="user-name" placeholder="Nombre usuario" />
+              <input class="input-form" id="password" type="password" name="user-pass" placeholder="Contraseña" />
+              <input id="btn-form-enviar" class="btn-form btn-amarillo" type="submit" value="Acceder">
+            </form>
+            <?php include ("./layout/modal-mensaje.php"); ?>
+          </div>
         </div>
 
         <?php include ("./layout/modal-error.php"); 
-              include ("./layout/modal-registro.php"); 
+              include ("./layout/modal-registro.php");
+               
               ?>
 
 
-        <p class="registro-aqui">
-          Aun no tienes cuenta? Registrate <button id="registro" class="btn-registro"=>aqui</button>.
-        </p>
       </main>
   </body>
 </html>

@@ -17,22 +17,50 @@ export function showProfileModal() {
   modalPerfil.style.display = "block";
 }
 
-export function showMesaggeModal(message) {
+export function showMesaggeModal(message, success) {
   const modalMessage = document.getElementById("modal-container-message");
   const modalMessageText = document.getElementById("modal-message-text");
-  const modalMessageClose = document.getElementById("btn-ok-message");
+
   modalMessage.settime
-  modalMessage.style.display = "flex";
+  modalMessage.style.opacity = "1";
   modalMessageText.innerText = message;
 
+  if (success == false) {
+    modalMessageText.classList.add("bg-rojo");
+  } else {
+    modalMessageText.classList.add("bg-verde");
+  }
+
   setTimeout(() => {
-    modalMessage.style.display = "none";
+    modalMessage.style.opacity = "0";
+    modalMessageText.classList.remove("bg-verde") || modalMessageText.classList.remove("bg-rojo");
   }, 2000);
   
-  modalMessageClose.addEventListener("click", (e) => {
+}
+
+export function confirmMessage(message, callback) {
+  const modalConfirm = document.getElementById("modal-container-confirmar");
+  const modalConfirmText = document.getElementById("modal-confirmar-text");
+  const buttonYes = document.getElementById("btn-yes");
+  const buttonNo = document.getElementById("btn-no");
+
+  modalConfirm.style.display = "flex";
+  
+  buttonYes.addEventListener("click", (e) => {
     e.preventDefault();
-    modalMessage.style.display = "none";
+    callback(true);
+    modalConfirm.style.display = "none";
+    showMesaggeModal("Perfil borrado correctamente");
   })
+  
+  buttonNo.addEventListener("click", (e) => {
+    e.preventDefault();
+    callback(false);
+    modalConfirm.style.display = "none";
+    showMesaggeModal("Perfil no borrado");
+  })
+
+  modalConfirmText.innerText = message;
 }
 
 export function handleUsernameEdit() {
@@ -72,11 +100,9 @@ export function handleUsernameEdit() {
           }
           return response.json();
       })
-      .then((data) => {
-          console.log(data);
-          
+      .then((data) => {     
           if (data.success) {
-              showMesaggeModal(data.message);
+              showMesaggeModal(data.message, data.success);
               setTimeout(() => {
                 window.location.href = "./main.php";
                 const updatedUserData = JSON.parse(sessionStorage.getItem('user_data'));
@@ -88,7 +114,7 @@ export function handleUsernameEdit() {
               }, 2000);
               
           } else {
-            showMesaggeModal(data.message);
+            showMesaggeModal(data.message, data.success);
           }
       })
       .catch((error) => {
@@ -138,10 +164,11 @@ export function handleDeleteProfile() {
   .then((data) => {
       console.log(data);
       if (data.success) {
-          alert("Usuario borrado con éxito");
+        setTimeout(() => {
           window.location.href = "./index.php";
+        }, 2000);
       } else {
-          alert("Error al borrar el usuario");
+        alert("Error al borrar el usuario");
       }
   })
   .catch((error) => {

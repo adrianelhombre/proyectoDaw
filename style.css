@@ -54,7 +54,7 @@ h2 {
 
 .main-container {
   display: grid;
-  grid-template-rows: 80px 1fr ;
+  grid-template-rows: 140px 1fr ;
   place-items: center;
   height: 100vh;
   margin-left: auto;
@@ -158,19 +158,146 @@ li {
   justify-content: center;
 }
 
-.main-login {
-  display: grid;
-  place-items: center;
-  gap: 15px;
-  max-width: 920px;
+/* .main-login {
+  width: 920px;
   margin-left: auto;
   margin-right: auto;
+} */
+
+/* .container-login {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  place-items: center;
+  gap: 15px;
+  height: 430px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.1);
+  border: solid var(--main-yelow);
+    backdrop-filter: blur(5px);
+} */
+
+/* .info-login {
+  display: grid;
+  width: 100%;
+  background: #525252e0;
+  border-radius: 10px;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
+} */
+
+/* .card-login {
+  width: 70%;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 120px;
+  align-items: end;
+} */
+
+.main-login {
+  width: 920px;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 10px;
+  background-color: rgba(255,255,255,0.1);
+  border: solid var(--main-yelow);
+  backdrop-filter: blur(5px);
+  /* overflow: hidden; */
+}
+
+.container-login {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  place-items: center;
+  height: 430px;
+  width: 1360px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.info-login {
+  display: grid;
+  width: 460px;
+  background: #525252e0;
+  border-radius: 10px;
+  height: 100%;
+  align-content: center;
+  justify-content: center;
 }
 
 .logo-grande {
   width: 300px;
   height: auto;
   filter: drop-shadow( 0 0 8px rgba(249, 249, 249, 0.2));
+}
+
+.card-login {
+  width: 460px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 120px;
+  align-items: end;
+  justify-items: center;
+}
+
+.card-registro {
+  width: 460px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 1fr 70px;
+  align-items: end;
+  justify-items: center;
+}
+
+.form-login {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 70%;
+}
+
+.right {
+  transform: translateX(0px); /* Desplazamiento de 463px a la derecha */
+  transition: transform .75s ease-in-out; /* Transición para el desplazamiento */
+}
+
+.left {
+  transform: translateX(-460px); /* Desplazamiento de 463px a la derecha */
+  transition: transform .75s ease-in-out; /* Transición para el desplazamiento */
+}
+
+.titulo-form {
+  color: #ffffffe0;
+}
+
+.input-form {
+  width: 100%;
+  border-radius: 6px;
+  border: thin solid var(--main-yelow);
+  background-color: transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  color: #fff;
+}
+
+.input-form::placeholder {
+  color: #ffffffb0;
+  font-size: 1em;
+}
+
+.btn-form {
+  width: 200px;
+  border-radius: 8px;
+  padding: 0.6em 0.8em;
+  font-size: 1em;
+  cursor: pointer;
+  transition: transform .75s ease;
+  border: none;
+  justify-self: center;
 }
 
 .registro-aqui {
@@ -378,6 +505,27 @@ li {
 .bienvenido {
   color: #000000;
 }
+
+
+/*      ---------- Frases miticas ---------      */
+
+.container-frase {
+  width: 90%;
+  text-align: center;
+}
+
+.frase-mitica, .frase-mitica.fade-out {
+  transition: opacity 0.5s ease-in-out; /* Ajusta la duración según sea necesario */
+}
+
+.nombre-entrenador, .nombre-entrenador.fade-out {
+  transition: opacity 0.5s ease-in-out; /* Ajusta la duración según sea necesario */
+}
+
+.fade-out {
+  opacity: 0;
+}
+
 
 
 
@@ -830,6 +978,33 @@ h2[contenteditable='true'] {
 /*      --------- Modal message ---------        */
 
 .modal-container-message {
+  opacity: 0;
+  width: 100%;
+  overflow: hidden;
+  align-self: center;
+}
+
+.modal-content-message {
+  margin: auto;
+  height: auto;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.modal-message-text {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+}
+
+
+
+/*      --------- Modal confirmar ---------        */
+
+.modal-container-confirmar {
   display: none;
   position: fixed;
   z-index: 1;
@@ -840,9 +1015,10 @@ h2[contenteditable='true'] {
   overflow: hidden;
 }
 
-.modal-content-message {
+.modal-content-confirmar {
   display: grid;
-  grid-template-columns: 1fr 50px;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   margin: auto;
   height: auto;
   width: 400px;
@@ -851,19 +1027,16 @@ h2[contenteditable='true'] {
   border-radius: 5px;
 }
 
-.modal-message-text {
+.modal-confirmar-text {
   display: flex;
   align-items: center;
   height: 100%;
+  grid-column: span 2;
 }
 
 
 
 
-.card {
-  padding: 2em;
-  text-align: center;
-}
 
 
 .btn-general {
@@ -896,7 +1069,8 @@ h2[contenteditable='true'] {
 
 .btn-general:hover,
 .btn-acciones:hover,
-.btn-borrar-perfil:hover {
+.btn-borrar-perfil:hover,
+.btn-form:hover {
   transform: scale(1.05);
 }
 
@@ -915,6 +1089,14 @@ h2[contenteditable='true'] {
 
 .bg-gris {
   background-color: var(--bg-color);
+}
+
+.bg-verde {
+  background-color: rgba(0, 128, 0, 0.608)
+}
+
+.bg-rojo {
+  background-color: #ff0000ae;
 }
 
 .btn-vamos:hover {

@@ -1,4 +1,4 @@
-import { loadUserProfile, showProfileModal, handleUsernameEdit, handleDeleteProfile } from "./profile-functions.js";
+import { loadUserProfile, showProfileModal, confirmMessage, handleUsernameEdit, handleDeleteProfile } from "./profile-functions.js";
 
 const closeModalButton = document.getElementById("close-modal-perfil");
 const buttonEditProfile = document.getElementById("btn-edit-profile");
@@ -28,7 +28,14 @@ export function initializeProfileModal() {
         });
         buttonDeleteProfile.addEventListener("click", (e) => {
             e.preventDefault();
-            handleDeleteProfile();   
+
+            confirmMessage("¿Estás seguro de que quieres borrar tu perfil?", (userConfirmed) => {
+                if (userConfirmed) {
+                    handleDeleteProfile();
+                } else {
+                    console.log("Perfil no borrado");
+                }
+            });
         });
     });
 }

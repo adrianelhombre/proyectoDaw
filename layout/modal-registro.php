@@ -3,7 +3,7 @@
     
     <span class="close" id="close-modal-registro">&times;</span>
     
-    <form id="form-registro" class="contact-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> 
+      <form id="form-registro" class="contact-form" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> 
         <h1 id="bienvenido" class="bienvenido">Bienvenido a la familia</h1>
         <input class="input-general" id="nombre-form" type="text" name="nombre-form" placeholder="Nombre" title="Este campo solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
         <input class="input-general" id="apellido-form" type="text" name="apellido-form" placeholder="Apellidos" title="Este campo solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>

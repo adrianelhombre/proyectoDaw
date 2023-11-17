@@ -27,6 +27,7 @@
         <span type="text" id="profile-name" class="input-general" contenteditable="false">Nombre</span>
         <span type="text" id="profile-surname" class="input-general" contenteditable="false">Apellidos</span>
         <button type="submit" id="btn-borrar-perfil" class='btn-borrar-perfil'>Borrar perfil</button>
+        <?php include('modal-confirmar.php') ?>
       </div>
     </form>
   </div>

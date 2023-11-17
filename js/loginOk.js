@@ -2,9 +2,18 @@ import { showMesaggeModal } from "./profile-functions.js";
 
 const formulario = document.getElementById("form-login");
 const buttonLogin = document.getElementById("btn-form-enviar");
+const modalError = document.getElementById("modal-error");
+const closeModalRegistroButton  = document.getElementById("close-modal-registro");
+const mensajeError = document.getElementById("message-modal");
 const formularioRegistro = document.getElementById("form-registro");
+const buttonRegistro = document.getElementById("registro");
 const submitRegistro = document.getElementById("btn-registro-enviar");
-const containerLogin = document.getElementById("container-login");
+const modalRegistro = document.getElementById("modal-container-registro");
+const errorMessage = document.getElementById("error-message");
+const buttonOk = document.getElementById("btn-ok");
+
+
+
 
 buttonLogin.addEventListener("click", (e) => {
   e.preventDefault();
@@ -36,6 +45,20 @@ buttonLogin.addEventListener("click", (e) => {
 });
 
 
+function mostrarModalRegistro() {
+  modalRegistro.style.display = "block";
+}
+
+function cerrarModalRegistro() {
+  modalRegistro.style.display = "none";
+}
+
+function cerrarModalError() {
+    modalError.style.display = "none";
+}
+
+
+
 function handleRegistroClick (e) {
   e.preventDefault();
   console.log("hola pa")
@@ -53,14 +76,14 @@ function handleRegistroClick (e) {
   .then((data) => {
     console.log("respuesta del servidor: ", data)
     if (data.success) {
-      showMesaggeModal(data.message, data.success)
-      formularioRegistro.reset();
-      setTimeout(() => {
-        containerLogin.classList.toggle("right");
-        containerLogin.classList.toggle("left");
-      }, 2000);
+      modalRegistro.style.display = "none";
+      modalError.style.display = "block";
+      mensajeError.innerText = data.message;
+      console.log("usuario creado")
     } else {
-      showMesaggeModal(data.message, data.success)
+      errorMessage.style.display = "block";
+      errorMessage.style.opacity = "1";
+      errorMessage.innerText = data.message;
     }
   })
   .catch((error) => {
@@ -68,30 +91,8 @@ function handleRegistroClick (e) {
   });
 }
 
-function handleLoginRegistro () {
-
-  const registroAqui = document.getElementById("registro-aqui");
-  
-
-  let isUserRegistered = false;
-
-  registroAqui.addEventListener("click", function () {
-
-    containerLogin.classList.toggle("right");
-    containerLogin.classList.toggle("left");
-
-    if (!isUserRegistered) {
-        registroAqui.innerHTML = "Ya tienes cuenta? Inicia sesión <button id='iniciar-sesion' class='btn-registro'>aqui</button>."; // Cambiar el texto
-    } else {
-        registroAqui.innerHTML = "Aun no tienes cuenta? Registrate <button id='registro' class='btn-registro'>aqui</button>."; // Cambiar el texto
-    }
-
-    // Cambiar el estado
-    isUserRegistered = !isUserRegistered;
-  });
-}
-
-document.addEventListener("DOMContentLoaded", handleLoginRegistro);
-
+buttonRegistro.addEventListener("click", mostrarModalRegistro)
 submitRegistro.addEventListener("click", handleRegistroClick)
+buttonOk.addEventListener("click", cerrarModalError)
+closeModalRegistroButton.addEventListener("click", cerrarModalRegistro)
 

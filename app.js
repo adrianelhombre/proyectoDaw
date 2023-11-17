@@ -4,7 +4,8 @@ import { initializeProfileModal } from "./js/modal-editar-perfil.js";
 import './js/modal-nuevo-ejercicio.js'
 import './js/modal-ejercicio.js'
 import './js/editar-ejercicio.js'
-
+import './js/get-functions.js'
+import { loadPhrase } from "./js/get-functions.js";
 
 const spanUser = document.getElementById("span-user");
 
@@ -15,6 +16,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
     loadExercises();
     loadTypes();
+    loadPhrase();
+    
     
     document.addEventListener('updateExercises', () => {
         grid.innerHTML = "";

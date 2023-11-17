@@ -12,7 +12,10 @@
     <?php include("layout/header.php") ?>
 
     <main class="main-container">
-      <h2 class="frase-mitica">Frase mitica</h2>
+      <div class="container-frase">
+        <h3 class="frase-mitica" id="frase-entrenador"></h3>
+        <span class="nombre-entrenador" id="nombre-entrenador"></span>
+      </div>
 
       <section class="grid-fluid" id="ejercicios">
         <!-- Aqui van los ejercicios -->
