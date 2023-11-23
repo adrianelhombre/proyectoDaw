@@ -40,7 +40,6 @@ buttonLogin.addEventListener("click", (e) => {
 
 function handleRegistroClick (e) {
   e.preventDefault();
-  console.log("hola pa")
 
   fetch("./db/new-user.php" , {
     method: "POST",
