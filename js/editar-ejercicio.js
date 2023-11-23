@@ -1,5 +1,6 @@
 import { loadExercises } from "./cargar-ejercicios.js";
 import { loadTypesModal } from "./cargar-tipos-modal.js";
+import { confirmMessage, showMesaggeModal } from "./profile-functions.js";
 const modalEjercicio = document.getElementById("modal-container");
 const buttonEdit = document.getElementById('btn-editar');
 const buttonDelete = document.getElementById('btn-borrar');
@@ -10,6 +11,7 @@ const descripcion = document.getElementById('descripcion-ejercicio');
 const contenedorInfo = document.getElementById('info-ejercicio-grande');
 const containerEditarImg = document.getElementById("container-editar-img");
 const imagenInput = document.getElementById('img-modal-nueva');
+const containerBoton = document.getElementById("container-btn-ejercicio");
 
 // Event listener para editar y eliminar ejercicios.
 buttonEdit.addEventListener("click", (e) => {
@@ -56,7 +58,7 @@ buttonEdit.addEventListener("click", (e) => {
       formData.append('imagen', imagenInput.files[0]); 
       formData.append('nombre', nombre.textContent);
       formData.append('duracion', duracion.textContent);
-      formData.append('tipo', tipoModal.value);
+      formData.append('tipo', tipoModal.value || tipoOriginal);
       formData.append('descripcion', descripcion.textContent);
 
       console.log('Datos del formulario:', formData);
@@ -67,13 +69,18 @@ buttonEdit.addEventListener("click", (e) => {
       })
       .then(response => {
           if (response.ok) {
-              console.log('Actualización exitosa');
-              loadExercises();
-              resetModalEjercicio();
-              imagenInput.value = "";
-              tipo.textContent = tipoModal.value || tipoOriginal;
+            showMesaggeModal("Ejercicio actualizado correctamente", true, modalEjercicio);
+            loadExercises();
+            resetModalEjercicio();
+            imagenInput.value = "";
+            tipo.textContent = tipoModal.value || tipoOriginal;
+            
+            setTimeout(() => {
+                containerBoton.style.display = "flex";
+                modalEjercicio.style.display = "none";
+            }, 1500)
           } else {
-              console.error('Error en la actualización');
+              showMesaggeModal("Fallo al actualizar el ejercicio", false, modalEjercicio)
           }
       })
       .catch(error => {
@@ -113,30 +120,44 @@ buttonEdit.addEventListener("click", (e) => {
 
 buttonDelete.addEventListener('click', (e) => {
   e.preventDefault();
-  const exerciseId = modalEjercicio.getAttribute("data-exercise-id");
-      
-      const formData = new FormData();
-      formData.append('id', exerciseId);
-      console.log('Datos del formulario:', formData);
-
-      alert('¿Está seguro de eliminar este ejercicio?');
-
-      fetch("./db/delete-exercise.php", {
-          method: "POST",
-          body: formData,
-      })
-      .then(response => {
-          if (response.ok) {
-              console.log('Ejercicio eliminado');
-              loadExercises();
-              modalEjercicio.style.display = "none";
-              alert('Ejercicio eliminado');
-          
-          } else {
-              console.error('Error en la actualización');
-          }
-      })
-      .catch(error => {
-          console.error('Error:', error);
-      });
+  
+    confirmMessage("¿Estás seguro de que quieres borrar el ejercicio?", (userConfirmed) => {
+        if (userConfirmed) {
+            deleteExercise();
+        } else {
+            console.log("Perfil no borrado");
+        }
+    });
 });
+
+function deleteExercise() {
+    const exerciseId = modalEjercicio.getAttribute("data-exercise-id");
+      
+    const formData = new FormData();
+    formData.append('id', exerciseId);
+
+    fetch("./db/delete-exercise.php", {
+        method: "POST",
+        body: formData,
+    })
+    .then(response => {
+        if (response.ok) {
+            buttonEdit.style.display = 'none';
+            buttonDelete.style.display = 'none';
+            showMesaggeModal('Ejercicio elmininado correctamente', true, modalEjercicio)
+            setTimeout(() => {
+                console.log('Ejercicio eliminado');
+                loadExercises();
+                modalEjercicio.style.display = "none";
+                containerBoton.style.display = "flex";
+                buttonEdit.style.display = 'block';
+                buttonDelete.style.display = 'block';
+            }, 2000);
+        } else {
+            console.error('Error en la actualización');
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+    });
+}

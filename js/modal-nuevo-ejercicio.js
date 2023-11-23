@@ -1,3 +1,5 @@
+import { showMesaggeModal } from "./profile-functions.js";
+
 const openModalButton = document.getElementById("btn-modal-new");
 const closeModalButton = document.getElementById("close-modal-new");
 const modalEjercicio = document.getElementById("modal-container-new");
@@ -27,11 +29,14 @@ formulario.addEventListener("submit", (e) => {
         body: new FormData(formulario),
     })
     .then(() => {
-        console.log(formulario);
-        formulario.reset();
-        document.dispatchEvent(new Event("updateExercises"));
-        modalEjercicio.style.display = "none";
-        containerBoton.style.display = "flex";
+        showMesaggeModal("Ejercicio añadido con exito", true, document.getElementById("modal-container-new"))
+        setTimeout(() => {
+            formulario.reset();
+            document.dispatchEvent(new Event("updateExercises"));
+            modalEjercicio.style.display = "none";
+            containerBoton.style.display = "flex";
+        }, 2000);
+
     })
     .catch((error) => {
         console.error("Error al obtener datos del ejercicio:", error);

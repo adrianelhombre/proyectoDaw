@@ -3,14 +3,18 @@ import { loadUserProfile, showProfileModal, confirmMessage, handleUsernameEdit, 
 const closeModalButton = document.getElementById("close-modal-perfil");
 const buttonEditProfile = document.getElementById("btn-edit-profile");
 const userDataString = sessionStorage.getItem('user_data');
+const buttonNewExercise = document.getElementById("container-btn-ejercicio");
 
 closeModalButton.addEventListener("click", () => {
     const modalPerfil = document.getElementById("modal-container-perfil");
     modalPerfil.style.display = "none";
+    buttonNewExercise.style.display = "flex";
 });
 
 export function initializeProfileModal() {
     buttonEditProfile.addEventListener("click", (e) => {
+        buttonNewExercise.style.display = "none";
+
         e.preventDefault();
         showProfileModal()
 
@@ -28,7 +32,7 @@ export function initializeProfileModal() {
         });
         buttonDeleteProfile.addEventListener("click", (e) => {
             e.preventDefault();
-
+            
             confirmMessage("¿Estás seguro de que quieres borrar tu perfil?", (userConfirmed) => {
                 if (userConfirmed) {
                     handleDeleteProfile();

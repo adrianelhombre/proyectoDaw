@@ -5,6 +5,8 @@ const buttonLogin = document.getElementById("btn-form-enviar");
 const formularioRegistro = document.getElementById("form-registro");
 const submitRegistro = document.getElementById("btn-registro-enviar");
 const containerLogin = document.getElementById("container-login");
+const cardLogin = document.getElementById("card-login");
+const cardRegistro = document.getElementById("card-registro");
 
 buttonLogin.addEventListener("click", (e) => {
   e.preventDefault();
@@ -21,11 +23,11 @@ buttonLogin.addEventListener("click", (e) => {
   })
   .then((data) => {
     if (data.success) {
-      showMesaggeModal(data.message, data.success)
+      showMesaggeModal(data.message, data.success, cardLogin)
       sessionStorage.setItem('user_data', JSON.stringify(data.user_data))
       window.location.href = 'main.php';  
     } else {
-      showMesaggeModal(data.message, data.success)
+      showMesaggeModal(data.message, data.success, cardLogin)
     }
   })
   .catch((error) => {
@@ -53,14 +55,14 @@ function handleRegistroClick (e) {
   .then((data) => {
     console.log("respuesta del servidor: ", data)
     if (data.success) {
-      showMesaggeModal(data.message, data.success)
+      showMesaggeModal(data.message, data.success, cardRegistro)
       formularioRegistro.reset();
       setTimeout(() => {
         containerLogin.classList.toggle("right");
         containerLogin.classList.toggle("left");
-      }, 2000);
+      }, 1500);
     } else {
-      showMesaggeModal(data.message, data.success)
+      showMesaggeModal(data.message, data.success, cardRegistro)
     }
   })
   .catch((error) => {

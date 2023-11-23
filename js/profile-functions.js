@@ -17,25 +17,39 @@ export function showProfileModal() {
   modalPerfil.style.display = "block";
 }
 
-export function showMesaggeModal(message, success) {
-  const modalMessage = document.getElementById("modal-container-message");
-  const modalMessageText = document.getElementById("modal-message-text");
+export function showMesaggeModal(message, success, targetElement) {
+  const existingModals = targetElement.getElementsByClassName("modal-content-message");
+  for (const modal of existingModals) {
+    targetElement.removeChild(modal);
+  }
 
-  modalMessage.settime
-  modalMessage.style.opacity = "1";
+  const modalMessage = document.createElement("div");
+  modalMessage.classList.add("modal-content-message");
+
+  const modalMessageText = document.createElement("span");
   modalMessageText.innerText = message;
+  modalMessageText.classList.add("modal-message-text");
 
-  if (success == false) {
+  if (success === false) {
     modalMessageText.classList.add("bg-rojo");
   } else {
     modalMessageText.classList.add("bg-verde");
   }
 
+  modalMessage.appendChild(modalMessageText);
+  targetElement.appendChild(modalMessage);
+
+
   setTimeout(() => {
-    modalMessage.style.opacity = "0";
-    modalMessageText.classList.remove("bg-verde") || modalMessageText.classList.remove("bg-rojo");
-  }, 2000);
-  
+    modalMessage.classList.add("active");
+  }, 50);
+
+  setTimeout(() => {
+    modalMessage.classList.remove("active");
+    setTimeout(() => {
+      targetElement.removeChild(modalMessage);
+    }, 500);
+  }, 1500);
 }
 
 export function confirmMessage(message, callback) {
@@ -50,14 +64,12 @@ export function confirmMessage(message, callback) {
     e.preventDefault();
     callback(true);
     modalConfirm.style.display = "none";
-    showMesaggeModal("Perfil borrado correctamente");
   })
   
   buttonNo.addEventListener("click", (e) => {
     e.preventDefault();
     callback(false);
     modalConfirm.style.display = "none";
-    showMesaggeModal("Perfil no borrado");
   })
 
   modalConfirmText.innerText = message;
@@ -85,6 +97,7 @@ export function handleUsernameEdit() {
       const userId = userData.id_user;
       const newUsername = usernameProfile.innerText;
       const spanUser = document.getElementById("span-user");
+      const containerEdit = document.getElementById("container-edit");
 
       // Enviar datos al servidor para actualizar el nombre de usuario
       fetch("./db/update-username.php", {
@@ -102,7 +115,7 @@ export function handleUsernameEdit() {
       })
       .then((data) => {     
           if (data.success) {
-              showMesaggeModal(data.message, data.success);
+              showMesaggeModal(data.message, data.success, containerEdit);
               setTimeout(() => {
                 window.location.href = "./main.php";
                 const updatedUserData = JSON.parse(sessionStorage.getItem('user_data'));
@@ -114,7 +127,7 @@ export function handleUsernameEdit() {
               }, 2000);
               
           } else {
-            showMesaggeModal(data.message, data.success);
+            showMesaggeModal(data.message, data.success,containerEdit);
           }
       })
       .catch((error) => {
@@ -147,7 +160,6 @@ export function handleDeleteProfile() {
   const userData = JSON.parse(sessionStorage.getItem('user_data'));
   const userId = userData.id_user;
 
-  // Lógica para eliminar el perfil
   fetch("./db/delete-user.php", {
       method: "POST",
       headers: {
@@ -162,8 +174,8 @@ export function handleDeleteProfile() {
       return response.json();
   })
   .then((data) => {
-      console.log(data);
       if (data.success) {
+        showMesaggeModal("Usuario elminado con exito", true, document.getElementById("modal-container-perfil"));
         setTimeout(() => {
           window.location.href = "./index.php";
         }, 2000);

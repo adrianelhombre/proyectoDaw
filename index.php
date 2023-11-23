@@ -12,7 +12,7 @@
       <main class="main-login">
         <div id="container-login" class="container-login left">
 
-          <div id="card-login" class="card-registro">
+          <div id="card-registro" class="card-registro">
             <form id="form-registro" class="form-login" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST"> 
               <h2 id="bienvenido" class="titulo-form">Bienvenido!</h2>
               <input class="input-form" id="nombre-form" type="text" name="nombre-form" placeholder="Nombre" title="Este campo solo acepta letras y espacios en blanco" pattern="^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$" required>
@@ -23,7 +23,6 @@
               <span id="error-message" class="error-message"></span>
               <input id="btn-registro-enviar" class="btn-general btn-amarillo" type="submit" value="Enviar">
             </form>
-            <?php include ("./layout/modal-mensaje.php"); ?>
           </div>
 
           <div id="info-login" class="info-login">
@@ -40,16 +39,8 @@
               <input class="input-form" id="password" type="password" name="user-pass" placeholder="Contraseña" />
               <input id="btn-form-enviar" class="btn-form btn-amarillo" type="submit" value="Acceder">
             </form>
-            <?php include ("./layout/modal-mensaje.php"); ?>
           </div>
         </div>
-
-        <?php include ("./layout/modal-error.php"); 
-              include ("./layout/modal-registro.php");
-               
-              ?>
-
-
       </main>
   </body>
 </html>

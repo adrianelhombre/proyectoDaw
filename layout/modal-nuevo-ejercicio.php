@@ -7,7 +7,7 @@
       <div class="ejercicio-grande">
 
         <div class="subir-img">
-          <input type="file" name="imagen" id="imagen-nueva" accept="image/*" class="btn-general" required> 
+          <input type="file" name="imagen" id="imagen-nueva" accept="image/*" required> 
         </div>
 
         <div class="info-nuevo-ejercicio">

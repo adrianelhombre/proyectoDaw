@@ -8,7 +8,7 @@
       <form id="form-modal" class="ejercicio-grande" method="POST" enctype="multipart/form-data">
         <div class="img-ejercicio-grande" id="container-img-modal">
           <div id="container-editar-img" class="container-editar-img">
-            <input name="archivo" type="file" id="img-modal-nueva" class="btn-general" accept=".jpg, .jpeg, .png"></input>
+            <input name="archivo" type="file" id="img-modal-nueva" accept=".jpg, .jpeg, .png"></input>
           </div>
           <img name='img-modal' class="img-modal-grande" id="img-ejercicio" src="" alt="imagen ejercicio" >
         </div>
@@ -19,8 +19,8 @@
             <span id="tipo-ejercicio" name='tipo-modal'></span>
             <span name='duracion-modal' id="duracion-ejercicio" contenteditable="false"></span>
             <p name='descripcion-modal' id="descripcion-ejercicio" contenteditable="false"></p>
-            <button id="btn-editar" class="btn-acciones"><img src="./assets/editar.png" class="icono-peq"></button>
-            <button id="btn-borrar" class="btn-acciones"><img src="./assets/borrar.png" class="icono-peq"></button>
+            <button id="btn-editar" class="btn-general btn-amarillo">Editar</button>
+            <button id="btn-borrar" class="btn-general btn-amarillo">Borrar</button>
         </div>       
       </form>
     </div>
